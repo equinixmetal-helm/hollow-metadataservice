@@ -1,0 +1,23 @@
+clusterFQDN: ""
+
+ingress:
+  enabled: true
+
+service:
+  enabled: true
+  loadbalancer: true
+  loadbalancerIP:
+    - "169.254.169.254"
+    - "192.80.8.124"
+    - "147.75.207.207"
+    - "147.75.207.1"
+
+metadataservice:
+  name: ""
+  port: 8080
+  resources:
+
+
+  image:
+  repository: "go.hollow.sh/something"
+  tag: ""
