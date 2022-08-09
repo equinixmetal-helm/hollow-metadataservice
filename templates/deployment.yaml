@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: metadata-service
+  labels:
+    k8s-app: metadata-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: metadata-service
+  template:
+    metadata:
+      annotations:
+        fluentd.packet.net/efk: stdout+stderr
+        fluentd.packet.net/efk-index: metadata-service
+      labels:
+        k8s-app: metadata-service
+    spec:
+      containers:
+        - name: metadata-service
+          env:
+          - name: API_URL
+            value: '{{ .Values.packetAPI }}'
+          image: "{{ .Values.metadataservice.image.repository }}:{{ .Values.metadataservice.image.tag }}"
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 9090
+              protocol: TCP
+          livenessProbe:
+            httpGet:
+              path: /_packet/healthcheck
+              port: http
+            initialDelaySeconds: 5
+            timeoutSeconds: 2
+          readinessProbe:
+            httpGet:
+              path: /healthcheck
+              port: http
+            initialDelaySeconds: 5
+            timeoutSeconds: 2
+          resources:
+            limits:
+              cpu: 4
+              memory: 4Gi
+            requests:
+              cpu: 4
+              memory: 4Gi
