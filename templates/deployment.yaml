@@ -23,7 +23,7 @@ spec:
           - name: API_URL
             value: '{{ .Values.packetAPI }}'
           - name: METADATASERVICE_DB_URI
-            value: "postgresql://metadata_admin:invalid-password@metadata-crdb.core-a.da11.delivery.engineering:443/metadata_service_stage?sslmode=verifyfull"
+            value: "postgresql://metadata_admin:invalid-password@metadata-crdb.core-a.da11.delivery.engineering:443/metadata_service_stage?sslmode=verify-full"
           image: "{{ .Values.metadataservice.image.repository }}:{{ .Values.metadataservice.image.tag }}"
           imagePullPolicy: Always
           ports:
