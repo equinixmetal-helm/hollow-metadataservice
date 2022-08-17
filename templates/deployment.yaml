@@ -22,6 +22,8 @@ spec:
           env:
           - name: API_URL
             value: '{{ .Values.packetAPI }}'
+          - name: METADATASERVICE_DB_URI
+            value: totallybogusuri
           image: "{{ .Values.metadataservice.image.repository }}:{{ .Values.metadataservice.image.tag }}"
           imagePullPolicy: Always
           ports:
