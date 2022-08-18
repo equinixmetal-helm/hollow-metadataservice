@@ -23,7 +23,7 @@ spec:
           - name: API_URL
             value: '{{ .Values.packetAPI }}'
           - name: METADATASERVICE_DB_URI
-            value: "postgresql://metadata_admin:invalid-password@metadata-crdb-internal.metadata-crdb.svc.cluster.local:26257/metadata_service_stage?sslmode=verify-full&sslrootcert=/dbcerts/ca.crt&application_name=metadata-service-stage-da11-hollow"
+            value: "postgresql://metadata_admin:invalid-password@metadata-crdb-internal.metadata-crdb.svc.cluster.local:26257/metadata_service_stage?sslmode=verify-full&sslrootcert=/dbcerts/ca-crt&application_name=metadata-service-stage-da11-hollow"
           image: "{{ .Values.metadataservice.image.repository }}:{{ .Values.metadataservice.image.tag }}"
           imagePullPolicy: Always
           volumeMounts:
