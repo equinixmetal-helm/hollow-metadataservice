@@ -49,3 +49,8 @@ spec:
             requests:
               cpu: 4
               memory: 4Gi
+      volumes:
+      - name: dbcerts
+        secret:
+          secretName: {{ template "common.names.fullname" . }}-crdb-ca
+          defaultMode: 0400
