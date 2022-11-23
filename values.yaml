@@ -16,6 +16,35 @@ ingress:
     - userdata
     - '2009-04-04'
 
+# See the upstream ingress-nginx values.yaml for the full list of options you
+# can override in your downstream values.yaml:
+# https://github.com/kubernetes/ingress-nginx/blob/main/charts/ingress-nginx/values.yaml
+ingress-nginx:
+  enabled: false
+  fullnameOverride: ingress-nginx-metadata
+  nameOverride: ingress-nginx-metadata
+  controller:
+    ingressClassResource:
+      name: nginx-metadata
+      enabled: true
+      default: false
+      controllerValue: "metadata.equinixmetal.com/ingress-nginx-metadata"
+    scope: # Limit the scope of this controller to a specific namespace. Default is $(POD_NAMESPACE)
+      enabled: true
+    # config: # Add custom configuration options for Nginx
+
+ingress-nginx-metadata:
+  enabled: false
+  # name: ""
+  # labels:
+  #   - ...
+  # annotations:
+  #   - ...
+  # hostnames:
+  #   - metadata.mydomain.com
+  # tlsSecretName: my-secret-name
+
+
 oidc:
   audience: ""
   issuer: ""
@@ -52,8 +81,6 @@ lookup:
     # audienceFrom: {}
     # # scopes should be formatted as white space separated strings
     # scopesFrom: {}
-
-
 
 tracing:
   enabled: false

@@ -1,0 +1,27 @@
+{{- if and (index .Values "ingress-nginx-metadata" "enabled") (index .Values "ingress-nginx" "enabled") -}}
+{{- $name := "" -}}
+{{- if (index .Values "ingress-nginx-metadata" "name") }}
+{{- $name = (index .Values "ingress-nginx-metadata" "name") -}}
+{{ else }}
+{{- $name = print (include "common.names.fullname" .) "-metadata" -}}
+{{ end -}}
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ $name }}
+  labels: {{- include "common.labels.standard" . | nindent 4}}
+spec:
+  externalTrafficPolicy: Local
+  ports:
+  - name: http
+    port: 80
+    protocoal: TCP
+    targetPort: 8000
+  - name: https
+    port: 443
+    protocol: TCP
+    targetPort: 8000
+  selector: {{ include "common.labels.matchLabels" . | nindent 4 }}
+  type: LoadBalancer
+{{ end }}
