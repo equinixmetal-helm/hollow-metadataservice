@@ -24,6 +24,31 @@ ingress-nginx:
   fullnameOverride: ingress-nginx-metadata
   nameOverride: ingress-nginx-metadata
   controller:
+    affinity:
+      podAntiAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 20
+          podAffinityTerm:
+            labelSelector:
+              matchExpressions:
+              - key: app.kubernetes.io/component
+                operator: In
+                values:
+                - controller
+            topologyKey: kubernetes.io/hostname
+        - weight: 80
+          podAffinityTerm:
+            labelSelector:
+              matchExpressions:
+              - key: app.kubernetes.io/name
+                operator: In
+                values:
+                - ingress-nginx-metadata
+              - key: app.kubernetes.io/instance
+                operator: In
+                values:
+                - ingress-nginx-metadata
+            topologyKey: "kubernetes.io/hostname"
     ingressClassResource:
       name: nginx-metadata
       enabled: true
