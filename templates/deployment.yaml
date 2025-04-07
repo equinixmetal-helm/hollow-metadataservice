@@ -31,6 +31,8 @@ spec:
             value: "{{ .Values.oidc.userClaim }}"
           - name: METADATASERVICE_SHUTDOWN_GRACE_PERIOD
             value: "{{ .Values.shutdownGracePeriod }}"
+          - name: METADATASERVICE_CRDB_ENABLED
+            value: "false"
           - name: METADATASERVICE_CRDB_URI
             valueFrom:
               secretKeyRef:
