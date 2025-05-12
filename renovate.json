@@ -1,9 +1,14 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:base"],
-  "regexManagers": [
+  "extends": [
+    "config:recommended"
+  ],
+  "customManagers": [
     {
-      "fileMatch": ["^values\\.yaml$"],
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/^values\\.yaml$/"
+      ],
       "matchStrings": [
         "metadataservice:\\s*\\n\\s*image:\\s*\\n\\s*repository:\\s*ghcr.io\\/(?<depName>metal-toolbox\\/hollow-metadataservice)\\s*\\n\\s*tag:\\s*\"?(?<currentValue>[^\"\\s]+)\"?"
       ],
@@ -13,12 +18,17 @@
   ],
   "packageRules": [
     {
-      "matchPackagePatterns": ["metal-toolbox/hollow-metadataservice"],
       "groupName": "hollow-metadataservice",
       "commitMessageTopic": "hollow-metadataservice image",
       "semanticCommits": "enabled",
       "semanticCommitType": "fix",
-      "labels": ["dependencies", "helm"]
+      "labels": [
+        "dependencies",
+        "helm"
+      ],
+      "matchPackageNames": [
+        "/metal-toolbox/hollow-metadataservice/"
+      ]
     }
   ]
 }
